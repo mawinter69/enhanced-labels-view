@@ -1,0 +1,4 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core">
+  <th align="right" data-sort-disable="false"><span tooltip="${%Number of Configured/Busy/Idle Executors}">${it.caption}</span></th>
+</j:jelly>

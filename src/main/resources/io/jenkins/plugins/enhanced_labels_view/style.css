@@ -1,0 +1,48 @@
+.elv-container {
+    display: flex;
+    gap: 1.5rem;
+    flex-direction: column;
+    margin-bottom: var(--section-padding);
+}
+
+.elv-container + div {
+    display: none;
+}
+
+.elv-title {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 0rem;
+}
+
+.elv-title button {
+    min-width: 1.75rem;
+    min-height: 1.75rem;
+    padding: 0.5rem;
+}
+
+.elv-title button.expanded {
+    transform: rotate(90deg);
+}
+
+.elv-summary {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.elv-summary-entry,
+.elv-agent-list-short,
+.elv-agent-list-short-entry {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.elv-summary-entry,
+.elv-agent-list-short {
+    flex-wrap: wrap;
+}
+

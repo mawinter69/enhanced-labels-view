@@ -1,0 +1,4 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core">
+  <td align="right">${agent.numExecutors}/${agent.countExecutors()}/${agent.countBusy()}/${agent.countIdle()}</td>
+</j:jelly>

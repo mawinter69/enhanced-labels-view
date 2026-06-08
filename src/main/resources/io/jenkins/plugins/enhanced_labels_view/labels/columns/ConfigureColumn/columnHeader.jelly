@@ -1,0 +1,4 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core">
+  <th class="jenkins-table__cell--tight" data-sort-disable="true" />
+</j:jelly>

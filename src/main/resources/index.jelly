@@ -1,0 +1,4 @@
+<?jelly escape-by-default='true'?>
+<div>
+    Enhanced details for the agents of a label.
+</div>
