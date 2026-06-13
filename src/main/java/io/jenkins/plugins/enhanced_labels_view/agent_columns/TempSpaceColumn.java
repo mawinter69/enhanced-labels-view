@@ -1,4 +1,4 @@
-package io.jenkins.plugins.enhanced_labels_view.labels.columns;
+package io.jenkins.plugins.enhanced_labels_view.agent_columns;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.Extension;

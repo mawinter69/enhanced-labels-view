@@ -4,7 +4,7 @@
   <st:adjunct includes="io.jenkins.plugins.enhanced_labels_view.style"/>
   <st:adjunct includes="io.jenkins.plugins.enhanced_labels_view.labels.AgentDetailsLabelAction.toggle"/>
   <div class="elv-container">
-    <h2 class="elv-title"><button class="jenkins-button" tooltip="${%Expand agent details}"><l:icon src="symbol-chevron-forward plugin-ionicons-api" class="icon-lg"/></button>${%Agents}</h2>
+    <h2 class="elv-title agents">${%Agents}<button class="jenkins-button elv-expand-agents" tooltip="${%Expand agent details}"><l:icon src="symbol-chevron-forward plugin-ionicons-api" class="icon-lg"/></button></h2>
     <div class="elv-summary">
       <j:forEach var="status" items="${it.agentStatusList}">
         <div class="elv-summary-entry">
@@ -23,7 +23,6 @@
     </div>
     <div class="elv-agent-table jenkins-hidden">
       <j:set var="columns" value="${it.columns}"/>
-      <j:set var="agent" value="${it.columns}"/>
       <t:setIconSize/>
       <j:getStatic var="extendedReadPermission" className="hudson.model.Computer" field="EXTENDED_READ"/>
       <table class="jenkins-table sortable ${iconSize == '16x16' ? 'jenkins-table--small' : iconSize == '24x24' ? 'jenkins-table--medium' : ''}">
@@ -54,5 +53,17 @@
         </tbody>
       </table>
     </div>
+    <j:set var="clouds" value="${it.label.clouds}"/>
+    <j:if test="${clouds.size() > 0}">
+      <h2 class="elv-title">${%Clouds}</h2>
+      <div class="elv-cloud-list">
+        <j:forEach var="cloud" items="${clouds}">
+          <div class="elv-cloud-list-entry">
+            <l:icon src="${cloud.iconClassName}" class="icon-sm" tooltip="${cloud.tooltip}"/>
+            <a href="${rootURL}/${cloud.url}" class="model-link">${cloud.displayName}</a>
+          </div>
+        </j:forEach>
+      </div>
+    </j:if>
   </div>
 </j:jelly>

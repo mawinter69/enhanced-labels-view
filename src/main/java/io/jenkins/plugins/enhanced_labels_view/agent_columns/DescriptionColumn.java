@@ -1,19 +1,19 @@
-package io.jenkins.plugins.enhanced_labels_view.labels.columns;
+package io.jenkins.plugins.enhanced_labels_view.agent_columns;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.Extension;
 import org.jenkinsci.Symbol;
 
-public class ExecutorsColumn extends AbstractAgentColumn {
+public class DescriptionColumn extends AbstractAgentColumn {
 
-    @Extension
-    @Symbol("executors")
+    @Extension(ordinal = 1000)
+    @Symbol("description")
     public static class DescriptorImpl extends AbstractAgentColumnDescriptor {
 
         @Override
         @NonNull
         public String getDisplayName() {
-            return "Executors";
+            return "Description";
         }
     }
 }

@@ -1,0 +1,4 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core">
+  <td align="right">${it.getExecutorsStatus(label)}</td>
+</j:jelly>

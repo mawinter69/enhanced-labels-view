@@ -7,7 +7,7 @@ import hudson.model.InvisibleAction;
 import hudson.model.Label;
 import hudson.slaves.OfflineCause;
 import hudson.slaves.SimpleScheduledRetentionStrategy;
-import io.jenkins.plugins.enhanced_labels_view.labels.columns.AbstractAgentColumn;
+import io.jenkins.plugins.enhanced_labels_view.agent_columns.AbstractAgentColumn;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

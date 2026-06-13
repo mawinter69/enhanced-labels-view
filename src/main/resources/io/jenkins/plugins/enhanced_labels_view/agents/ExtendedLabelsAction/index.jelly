@@ -1,0 +1,42 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
+         xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+  <l:layout title="${%title(it.computer.displayName)}">
+    <st:include it="${it.computer}" page="sidepanel.jelly"/>
+    <l:main-panel>
+      <l:app-bar title="${%Labels}" />
+      <j:set var="columns" value="${it.columns}"/>
+      <t:setIconSize/>
+      <table class="jenkins-table jenkins-table--auto-width sortable ${iconSize == '16x16' ? 'jenkins-table--small' : iconSize == '24x24' ? 'jenkins-table--medium' : ''}">
+        <thead>
+          <tr>
+            <th class="jenkins-table__cell--tight">S</th>
+            <th>${%Label}</th>
+            <j:forEach var="column" items="${columns}">
+              <st:include page="columnHeader.jelly" it="${column}" />
+            </j:forEach>
+          </tr>
+        </thead>
+        <tbody>
+          <j:forEach var="entry" items="${it.computer.node.labelCloud}">
+            <j:if test="${entry.item!=it.computer.node.selfLabel}">
+              <j:set var="label" value="${entry.item}"/>
+              <tr>
+                <td class="jenkins-table__cell--tight jenkins-table__icon">
+                  <div class="jenkins-table__cell__button-wrapper">
+                    <j:set var="labelStatus" value="${it.getLabelStatus(label)}"/>
+                    <l:icon src="${labelStatus.symbol()}" tooltip="${labelStatus.tooltip()}"/>
+                  </div>
+                </td>
+                <td><a class="model-link jenkins-table__link" href="${rootURL}/label/${label.name}">${label.name}</a></td>
+                <j:forEach var="column" items="${columns}">
+                  <st:include page="column.jelly" it="${column}" />
+                </j:forEach>
+              </tr>
+            </j:if>
+          </j:forEach>
+        </tbody>
+      </table>
+    </l:main-panel>
+  </l:layout>
+</j:jelly>

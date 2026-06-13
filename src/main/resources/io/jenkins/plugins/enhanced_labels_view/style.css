@@ -34,15 +34,22 @@
 
 .elv-summary-entry,
 .elv-agent-list-short,
+.elv-cloud-list-entry,
 .elv-agent-list-short-entry {
     display: flex;
     gap: 0.25rem;
     align-items: center;
-    flex-wrap: wrap;
 }
 
 .elv-summary-entry,
+.elv-cloud-list,
 .elv-agent-list-short {
+    flex-wrap: wrap;
+}
+
+.elv-cloud-list {
+    display: flex;
+    gap: 0.25rem;
     flex-wrap: wrap;
 }
 
