@@ -2,28 +2,36 @@ package io.jenkins.plugins.enhanced_labels_view.labels;
 
 import hudson.Extension;
 import hudson.model.Action;
-import hudson.model.Descriptor;
 import hudson.model.InvisibleAction;
 import hudson.model.Label;
+import hudson.model.labels.LabelAtom;
+import hudson.model.labels.LabelAtomProperty;
 import hudson.slaves.OfflineCause;
 import hudson.slaves.SimpleScheduledRetentionStrategy;
 import io.jenkins.plugins.enhanced_labels_view.agent_columns.AbstractAgentColumn;
+import io.jenkins.plugins.enhanced_labels_view.agent_columns.WrappedNodeMonitorColumn;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import jenkins.model.IComputer;
 import jenkins.model.TransientActionFactory;
-import net.sf.json.JSONObject;
 import org.jspecify.annotations.NonNull;
 import org.kohsuke.accmod.restrictions.suppressions.SuppressRestrictedWarnings;
 import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.StaplerRequest2;
 
 @SuppressRestrictedWarnings(Label.class)
 public class AgentDetailsLabelAction extends InvisibleAction {
 
     private final Label label;
+
+    private static final List<String> defaultColumns = List.of(
+            "io.jenkins.plugins.enhanced_labels_view.agent_columns.ExecutorsColumn",
+            "io.jenkins.plugins.enhanced_labels_view.agent_columns.WrappedNodeMonitorColumn:hudson.node_monitors.ArchitectureMonitor",
+            "io.jenkins.plugins.enhanced_labels_view.agent_columns.WrappedNodeMonitorColumn:hudson.node_monitors.DiskSpaceMonitor",
+            "io.jenkins.plugins.enhanced_labels_view.agent_columns.WrappedNodeMonitorColumn:hudson.node_monitors.TemporarySpaceMonitor",
+            "io.jenkins.plugins.enhanced_labels_view.agent_columns.ConfigureColumn"
+    );
 
     @DataBoundConstructor
     public AgentDetailsLabelAction(Label label) {
@@ -36,11 +44,24 @@ public class AgentDetailsLabelAction extends InvisibleAction {
 
     public List<AbstractAgentColumn> getColumns() {
         ArrayList<AbstractAgentColumn> agentColumns = new ArrayList<>();
-        final JSONObject emptyJSON = new JSONObject();
-        AbstractAgentColumn.all().forEach(c -> {
+        if (label instanceof LabelAtom la) {
+            LabelAtomProperty lap = la.getPropertiesList().stream().filter(p -> p instanceof Property).findFirst().orElse(null);
+            if (lap instanceof Property p) {
+                return p.getAgentColumns();
+            }
+        }
+        defaultColumns.forEach(c -> {
             try {
-                agentColumns.add(c.newInstance((StaplerRequest2) null, emptyJSON));
-            } catch (Descriptor.FormException e) {
+                String[] parts = c.split(":", 2);
+                Class<?> clazz = Class.forName(parts[0]);
+                if (AbstractAgentColumn.class.isAssignableFrom(clazz)) {
+                    AbstractAgentColumn column = (AbstractAgentColumn) clazz.getDeclaredConstructor().newInstance();
+                    if (column instanceof WrappedNodeMonitorColumn mw && parts.length > 1) {
+                        mw.setMonitorClass(parts[1]);
+                    }
+                    agentColumns.add(column);
+                }
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         });

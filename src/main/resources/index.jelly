@@ -1,4 +1,5 @@
 <?jelly escape-by-default='true'?>
 <div>
-    Enhanced details for the agents of a label.
+    Get better insights on your labels. For an agent a dedicated action is provided with details for each label.
+    On a label page replace the simple list with a table of agents including node monitors. Adds the list of clouds that can provision agents for this label.
 </div>

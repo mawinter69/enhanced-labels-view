@@ -1,0 +1,6 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:f="/lib/form" xmlns:l="/lib/layout"
+         xmlns:t="/lib/hudson">
+    <h2>Columns</h2>
+    <f:repeatableHeteroProperty field="agentColumns" addCaption="${%Add Agent Column}" hasHeader="true" honorOrder="true"/>
+</j:jelly>

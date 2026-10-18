@@ -1,7 +1,7 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout">
   <td class="jenkins-table__cell--tight">
-    <j:if test="${agent.hasPermission(extendedReadPermission)}">
+    <j:if test="${c.hasPermission(extendedReadPermission)}">
       <div class="jenkins-table__cell__button-wrapper">
         <a href="${rootURL}/${c.url}configure" class="jenkins-button jenkins-button--tertiary">
           <l:icon src="symbol-settings" />

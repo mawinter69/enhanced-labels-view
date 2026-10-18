@@ -1,6 +1,0 @@
-<?jelly escape-by-default='true'?>
-<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler">
-  <j:set var="m" value="${it.monitor}"/>
-  <j:set var="data" value="${m.data(agent)}"/>
-  <st:include page="column.jelly" from="${m}" />
-</j:jelly>

@@ -4,8 +4,13 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.Extension;
 import hudson.model.Computer;
 import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.DataBoundConstructor;
 
 public class ExecutorsColumn extends AbstractAgentColumn {
+
+    @DataBoundConstructor
+    public ExecutorsColumn() {
+    }
 
     public String getExecutorsStatus(Computer c) {
         int onlineExecutors = c.countExecutors();

@@ -31,22 +31,26 @@
             <th class="jenkins-table__cell--tight">S</th>
             <th align="right">${%Name}</th>
             <j:forEach var="column" items="${columns}">
-              <st:include page="columnHeader.jelly" it="${column}" />
+              <j:if test="${column.caption!=null}">
+                <st:include page="columnHeader.jelly" it="${column}" />
+              </j:if>
             </j:forEach>
           </tr>
         </thead>
         <tbody>
-          <j:forEach var="agent" items="${it.computers}">
+          <j:forEach var="c" items="${it.computers}">
             <tr>
               <td data="${c.icon}" class="jenkins-table__cell--tight jenkins-table__icon">
                 <div class="jenkins-table__cell__button-wrapper">
-                  <l:icon src="${agent.iconClassName}" alt="${agent.iconAltText}" tooltip="${agent.tooltip}"/>
+                  <l:icon src="${c.iconClassName}" alt="${c.iconAltText}" tooltip="${c.tooltip}"/>
                 </div>
               </td>
 
-              <td align="right"><a href="${rootURL}/${agent.url}" class="jenkins-table__link model-link">${agent.displayName}</a></td>
+              <td align="right"><a href="${rootURL}/${c.url}" class="jenkins-table__link model-link">${c.displayName}</a></td>
               <j:forEach var="column" items="${columns}">
-                <st:include page="column.jelly" it="${column}" />
+                <j:if test="${column.caption!=null}">
+                  <st:include page="column.jelly" it="${column}" />
+                </j:if>
               </j:forEach>
             </tr>
           </j:forEach>

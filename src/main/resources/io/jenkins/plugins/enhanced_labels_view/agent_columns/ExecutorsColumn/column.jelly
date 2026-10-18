@@ -1,4 +1,4 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core">
-  <td align="right">${it.getExecutorsStatus(agent)}</td>
+  <td align="right">${it.getExecutorsStatus(c)}</td>
 </j:jelly>
